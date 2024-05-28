@@ -1,25 +1,32 @@
+import express from "express";
+import { uri } from "./config.js";
+import mongoose from "mongoose";
+import {Book} from "./models/bookModel.js"
 
-import express from 'express'
-import {uri} from './config.js'
-import mongoose from 'mongoose'
+const app = express();
+const port = 3000;
 
-const app = express()
-const port = 3000
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World! This is the node API server!')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World! This is the node API server!");
+});
 
-
+app.post("/api/products", (req, res) => {
+  try {
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
+});
 
 mongoose
   .connect(uri)
-  .then(()=> {
-    console.log("App connectioned to DB")
+  .then(() => {
+    console.log("App connectioned to DB");
     app.listen(port, () => {
-      console.log(`Example app listening on port ${port}`)
-    })
+      console.log(`Example app listening on port ${port}`);
+    });
   })
-  .catch((error)=>{
-    console.log(error)
-  })
+  .catch((error) => {
+    console.log(error);
+  });
